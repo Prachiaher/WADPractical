@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Registration</title>
+</head>
+<body>
+    
+    <!--Create Registration form-->
+    <div class="container">
+         <div class="card">
+            <h2>Registration Form</h2>
+            <form action="#">
+                <div class="form group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name">
+                </div>
+                <div class="form group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email">
+                </div>
+                <div class="form group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password">
+                </div>
+                <div class="text-center">
+                    <button type="button" onclick="saveData()" class="btn btn-primary" id="save_btn">submit</button>
+                </div>
+            </form>
+            </div>
+        </div>
+</body>
+<script>
+    function saveData(){
+       let name,email,Password;
+       name=document.getElementById("name").value;
+       email=document.getElementById("email").value;
+       password=document.getElementById("password").value;
+       //console.log(name+email+password);
+      // localStorage.setItem("name",name);
+       //localStorage.setItem("email",email);
+       //localStorage.setItem("password",password);
+       let user_records=new Array();
+       user_records=JSON.parse(localStorage.getItem("user"))?JSON.parse(localStorage.getItem("user")):[]
+       if (user_records.some((v)=>{
+              return v.email==email
+       })){
+        alert("DuplicateData");
+       }
+       else{
+        user_records.push({
+            "name":name,
+            "email":email,
+            "password":password
+        })
+        localStorage.setItem("user",JSON.stringify(user_records));
+       }
+    }
+</script>
+</html>
